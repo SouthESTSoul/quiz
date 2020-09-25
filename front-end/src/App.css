@@ -36,3 +36,37 @@
     transform: rotate(360deg);
   }
 }
+
+.header{
+  background: darkblue;
+  text-align: left;
+}
+.header a{
+  margin-left: 30px;
+  color: white;
+}
+
+.product{
+  float:left;
+  width:20%;
+  height: 200px;
+  text-align: left;
+  border-style:solid;
+  border-color: antiquewhite;
+  margin-left: 50px;
+  width: 200px;
+  margin-top: 30px;
+}
+
+
+.description {
+  float:left;
+}
+.product button{
+  margin-top: 50px;
+  float:right;
+  border-radius: 50%;
+  border-style: none;
+  width: 30px;
+  height: 30px;
+}
