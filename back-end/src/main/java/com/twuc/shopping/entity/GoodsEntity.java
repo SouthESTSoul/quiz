@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
+import java.util.List;
 
 @Entity
 @Table(name = "goods")
@@ -17,10 +17,14 @@ import javax.persistence.*;
 public class GoodsEntity {
     @Id
     @GeneratedValue
-    @Column(name="goods_id")
+    @Column(name = "goods_id")
     private Integer id;
     private String goodsName;
     private String jpgUrl;
     private int price;
     private String unit;
+
+    @OneToMany(mappedBy = "goodsEntity", cascade = CascadeType.REMOVE)
+    private List<OrderEntity> orderEntities;
+
 }

@@ -1,7 +1,9 @@
 package com.twuc.shopping.utils;
 
 import com.twuc.shopping.dto.Goods;
+import com.twuc.shopping.dto.Order;
 import com.twuc.shopping.entity.GoodsEntity;
+import com.twuc.shopping.entity.OrderEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,5 +37,30 @@ public class CommonUtils {
                 .build();
         return goodsEntity;
     }
+
+    public static OrderEntity convertOrderDtoToEntity (Order order){
+        OrderEntity orderEntity =OrderEntity.builder()
+                .goodsEntity(convertGoodsDtoToEntity(order.getGoods()))
+                .count(order.getCount())
+                .build();
+        return orderEntity;
+    }
+
+    public static Order convertOrderEntityToDto(OrderEntity orderEntity){
+        Order order=Order.builder()
+                .goods(convertGoodsEntityToDto(orderEntity.getGoodsEntity()))
+                .count(orderEntity.getCount())
+                .build();
+        return order;
+    }
+
+    public static List<Order> convertOrderEntityListToDto(List<OrderEntity> orderEntities){
+        List<Order> orders = orderEntities.stream()
+                .map(CommonUtils::convertOrderEntityToDto)
+                .collect(Collectors.toList());
+
+        return orders;
+    }
+
 
 }

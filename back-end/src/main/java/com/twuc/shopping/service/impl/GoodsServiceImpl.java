@@ -16,7 +16,7 @@ public class GoodsServiceImpl implements GoodsService {
     private final GoodsRepository goodsRepository;
 
     @Override
-    public List<Goods> findAll() {
+    public List<Goods> getGoodses() {
         List<GoodsEntity> goodsEntities = goodsRepository.findAll();
         List<Goods> goodsList = CommonUtils.convertGoodsEntityListToDto(goodsEntities);
         return goodsList;

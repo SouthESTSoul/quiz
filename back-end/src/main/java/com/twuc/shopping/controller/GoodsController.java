@@ -18,7 +18,7 @@ public class GoodsController {
 
     @GetMapping("/goodses")
     public ResponseEntity getGoodses() {
-        List<Goods> goodsList = goodsService.findAll();
+        List<Goods> goodsList = goodsService.getGoodses();
         return ResponseEntity.ok().body(goodsList);
     }
 }
