@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface GoodsService {
     List<Goods> getGoodses();
+    void addGoods( Goods goods);
 }

@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,5 +22,11 @@ public class GoodsController {
     public ResponseEntity getGoodses() {
         List<Goods> goodsList = goodsService.getGoodses();
         return ResponseEntity.ok().body(goodsList);
+    }
+
+    @PostMapping("/goods")
+    public ResponseEntity addGoods(@RequestBody Goods goods) {
+         goodsService.addGoods(goods);
+        return ResponseEntity.status(201).build();
     }
 }

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class GoodsServiceImpl implements GoodsService {
@@ -20,5 +21,11 @@ public class GoodsServiceImpl implements GoodsService {
         List<GoodsEntity> goodsEntities = goodsRepository.findAll();
         List<Goods> goodsList = CommonUtils.convertGoodsEntityListToDto(goodsEntities);
         return goodsList;
+    }
+
+    @Override
+    public void addGoods(Goods goods) {
+        GoodsEntity goodsEntity = CommonUtils.convertGoodsDtoToEntity(goods);
+        goodsRepository.save(goodsEntity);
     }
 }
