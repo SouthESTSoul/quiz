@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {createProduct} from './Common'
+import Products from './Products'
 
 class AddGoods extends Component {
 
@@ -24,16 +25,17 @@ class AddGoods extends Component {
 	});
   };
 
-  onFormSubmit = () => {
+  onFormSubmit = (event) => {
+	// event.preventDefault();
 	const { goodsName, price, unit, jpgUrl } = this.state.goods;
 	const goods = {goodsName, price, unit, jpgUrl};
-	createProduct(goods).then(()=>alert("创建成功") ).catch(()=>alert("创建失败"))
+	createProduct(goods).then(()=>alert('创建成功') ).catch((error)=>alert(`创建失败,${error.message}`))
   };
 
   render() {
 	const { onFormFieldChange, onFormSubmit, goodsValid } = this;
 	return (
-		<form>
+		<form action="/">
 		  <label htmlFor="goodsName" className="required">
 			名称：
 		  </label>

@@ -19,7 +19,7 @@ export async function createProduct(product) {
 
   if (response.status !== 201) {
 	const data = await response.json();
-	throw new Error(data.error);
+	throw new Error(data.message);
   }
 
   return;
