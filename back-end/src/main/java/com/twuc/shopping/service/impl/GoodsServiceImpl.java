@@ -2,6 +2,7 @@ package com.twuc.shopping.service.impl;
 
 import com.twuc.shopping.dto.Goods;
 import com.twuc.shopping.entity.GoodsEntity;
+import com.twuc.shopping.exception.RepeatGoodsNameException;
 import com.twuc.shopping.repository.GoodsRepository;
 import com.twuc.shopping.service.GoodsService;
 import com.twuc.shopping.utils.CommonUtils;
@@ -25,7 +26,12 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public void addGoods(Goods goods) {
+        GoodsEntity goodsByName = goodsRepository.findOneByGoodsName(goods.getGoodsName());
+        if(goodsByName!=null){
+            throw new RepeatGoodsNameException("商品名称已存在，请输入新的商品名称");
+        }
         GoodsEntity goodsEntity = CommonUtils.convertGoodsDtoToEntity(goods);
         goodsRepository.save(goodsEntity);
     }
+
 }

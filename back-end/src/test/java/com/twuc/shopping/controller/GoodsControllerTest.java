@@ -64,4 +64,9 @@ public class GoodsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",hasSize(3)));
     }
+    @Test
+    void should_add_one_goods(){
+        GoodsEntity byGoodsName = goodsRepository.findOneByGoodsName("123");
+        System.out.println(123);
+    }
 }

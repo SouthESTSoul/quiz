@@ -17,7 +17,7 @@ public class Goods {
     @NotEmpty
     private String jpgUrl;
     @NotEmpty
-    private int price;
+    private Integer price;
     @NotEmpty
     private String unit;
 }

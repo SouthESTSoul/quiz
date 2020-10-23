@@ -25,7 +25,7 @@ public class GoodsController {
     }
 
     @PostMapping("/goods")
-    public ResponseEntity addGoods(@RequestBody Goods goods) {
+    public ResponseEntity addGoods( @RequestBody Goods goods) {
          goodsService.addGoods(goods);
         return ResponseEntity.status(201).build();
     }
