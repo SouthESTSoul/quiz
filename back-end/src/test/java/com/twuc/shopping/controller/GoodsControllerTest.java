@@ -1,27 +1,33 @@
 package com.twuc.shopping.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twuc.shopping.dto.Goods;
 import com.twuc.shopping.entity.GoodsEntity;
 import com.twuc.shopping.repository.GoodsRepository;
 import com.twuc.shopping.utils.CommonUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@Transactional
 public class GoodsControllerTest {
     @Autowired
     MockMvc mockMVC;
@@ -29,20 +35,20 @@ public class GoodsControllerTest {
     GoodsRepository goodsRepository;
 
     @BeforeEach
-    void initDataBase(){
-        Goods goods1=Goods.builder()
+    void initDataBase() {
+        Goods goods1 = Goods.builder()
                 .goodsName("可乐1")
                 .unit("瓶")
                 .price(3)
                 .jpgUrl("https://i.loli.net/2020/09/25/FQBaZcUGNIOusV4.jpg")
                 .build();
-        Goods goods2=Goods.builder()
+        Goods goods2 = Goods.builder()
                 .goodsName("可乐2")
                 .unit("瓶")
                 .price(3)
                 .jpgUrl("https://i.loli.net/2020/09/25/FQBaZcUGNIOusV4.jpg")
                 .build();
-        Goods goods3=Goods.builder()
+        Goods goods3 = Goods.builder()
                 .goodsName("可乐3")
                 .unit("瓶")
                 .price(3)
@@ -62,11 +68,27 @@ public class GoodsControllerTest {
         List<GoodsEntity> all = goodsRepository.findAll();
         mockMVC.perform(get("/goodses"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$",hasSize(3)));
+                .andExpect(jsonPath("$", hasSize(3)));
     }
+
     @Test
-    void should_add_one_goods(){
-        GoodsEntity byGoodsName = goodsRepository.findOneByGoodsName("123");
-        System.out.println(123);
+    void should_add_one_goods() throws Exception {
+        goodsRepository.deleteAll();
+        ObjectMapper objectMapper = new ObjectMapper();
+        Goods goods = Goods.builder()
+                .goodsName("可乐1234")
+                .jpgUrl("https://i.loli.net/2020/09/25/FQBaZcUGNIOusV4.jpg")
+                .price(123)
+                .unit("瓶")
+                .build();
+        String goodsString = objectMapper.writeValueAsString(goods);
+
+        mockMVC.perform(post("/goods")
+                .content(goodsString)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(201));
+        long goodsCount = goodsRepository.count();
+        Assertions.assertEquals(1l,goodsCount);
     }
+
 }
