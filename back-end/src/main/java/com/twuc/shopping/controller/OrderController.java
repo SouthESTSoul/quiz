@@ -19,9 +19,10 @@ public class OrderController {
     @GetMapping("/orders")
     public ResponseEntity getOrders() {
         List<Order> orderList = orderService.getOrders();
-        if (orderList.size()==0){
-            return ResponseEntity.status(205).build();
-        }
+//        if (orderList.size()==0){
+//            return ResponseEntity.status(205).build();
+//        }
+
         return ResponseEntity.ok().body(orderList);
     }
 
