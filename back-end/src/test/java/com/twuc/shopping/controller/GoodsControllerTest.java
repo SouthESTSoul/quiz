@@ -36,6 +36,7 @@ public class GoodsControllerTest {
 
     @BeforeEach
     void initDataBase() {
+        goodsRepository.deleteAll();
         Goods goods1 = Goods.builder()
                 .goodsName("可乐1")
                 .unit("瓶")
@@ -89,6 +90,26 @@ public class GoodsControllerTest {
                 .andExpect(status().is(201));
         long goodsCount = goodsRepository.count();
         Assertions.assertEquals(1l,goodsCount);
+    }
+
+    @Test
+    void should_not_add_one_goods_when_goodsName_has_been_exist() throws Exception {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Goods goods = Goods.builder()
+                .goodsName("可乐1")
+                .jpgUrl("https://i.loli.net/2020/09/25/FQBaZcUGNIOusV4.jpg")
+                .price(123)
+                .unit("瓶")
+                .build();
+
+        String goodsString = objectMapper.writeValueAsString(goods);
+
+        mockMVC.perform(post("/goods")
+                .content(goodsString)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+
     }
 
 }
