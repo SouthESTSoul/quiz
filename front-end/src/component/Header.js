@@ -5,8 +5,8 @@ class Header extends Component {
 	return (
 		<div className="header">
 			<Link to='/' >商城</Link>
-			<Link to='/calculator'>订单</Link>
-			<Link to='/timer'>+ 添加商品</Link>
+			<Link to='/orders'>订单</Link>
+			<Link to='/addGoods'>+ 添加商品</Link>
 		</div>
 	);
   }
