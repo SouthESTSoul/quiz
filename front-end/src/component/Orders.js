@@ -40,10 +40,12 @@ class Orders extends Component {
   render() {
 	return (
 	<div className='orders'>
-	  {this.state.orders.map((order,index)=>{
+	  {
+	    this.state.orders.map((order,index)=>{
 		return (<OrderItem count={order.count} price={order.goods.price} goodsName={order.goods.goodsName}  unit={order.goods.unit} key={index} ></OrderItem>
 		);
-	  })}
+	  })
+	  }
 	</div>
 	);
   }

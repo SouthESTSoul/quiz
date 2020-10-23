@@ -32,6 +32,8 @@ class AddGoods extends Component {
 	createProduct(goods).then(()=>alert('创建成功') ).catch((error)=>alert(`创建失败,${error.message}`))
   };
 
+
+
   render() {
 	const { onFormFieldChange, onFormSubmit, goodsValid } = this;
 	return (

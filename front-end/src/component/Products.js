@@ -29,17 +29,29 @@ class Products extends Component {
 		});
   }
 
-
-  render() {
-	return (
-		<div className="products">
-		  {this.state.goodses.map((product,index)=>{
-		    return (<ProductItem name={product.goodsName} price={product.price} img={product.jpgUrl} unit={product.unit} key={index} ></ProductItem>
-			);
-			  })}
-		</div>
-	);
+  render(){
+    let productItems;
+    if(this.state.goodses.length===0){
+	  productItems=(<p>暂无订单，返回商城页面继续购买</p>)
+	}else{
+	  productItems=  this.state.goodses.map((product,index)=>{
+		return (<ProductItem name={product.goodsName} price={product.price} img={product.jpgUrl} unit={product.unit} key={index} ></ProductItem>
+		);
+	  })
+	}
+    return  <div className="products">
+	  {productItems}
+	</div>
   }
+
+  // render() {
+	// return (
+	// 	<div className="products">
+	// 	  {
+	// 	    }
+	// 	</div>
+	// );
+  // }
 }
 
 export default Products;
